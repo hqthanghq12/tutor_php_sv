@@ -1,0 +1,7 @@
+Xác định nhanh kiểu dữ liệu khi triển khai đề thi 
+- Varchar  -> Chữ chuỗi , số điện thoại 
+- int điểm số => Số 
+- ngày sinh -> date 
+-> Đối với phần tạo CSDL 5 - 10 phút => luyện tập 
+-> file connect được phép chuẩn bị sẵn -> 1 phút để kết nối tới CSDL PDO 
+-> Chuẩn bị kỹ càng về XAMPP trước khi đi thi 

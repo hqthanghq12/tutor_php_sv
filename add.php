@@ -1,3 +1,34 @@
+<?php
+require_once 'connect_database.php';
+$listCategory = "SELECT * FROM category";
+$resultCategory  = $conn->query($listCategory)->fetchAll();
+
+if(isset($_POST['btnSave'])) {
+    // nhận toàn bộ dữ liệu từ các ô input form để push lên 
+    // echo "<pre>";
+    // var_dump($_POST);
+    // die;
+     $productName = $_POST['product_name'];
+     $categoryId = $_POST['category_id'];
+     $price = $_POST['price'];
+     $quantity = $_POST['quantity'];
+     $targetDir = "images/"; // tạo ra giá trị bằng đúng tên thư mục đã được chọn 
+     // đường dẫn đền file được lưu 
+     $targetFile = $targetDir.$_FILES['image']['name'];
+     // tiến hành thực hiện upload file ảnh di chuyển file ảnh từ máy lên server 
+     if(move_uploaded_file($_FILES['image']['tmp_name'],$targetFile)) {
+        $imageUrl = $targetFile;
+     }
+     // xong việc upfile 
+     // insert vào cơ sở dữ liệu
+     $sql = "INSERT INTO products VALUES(NULL,'$productName','$price','$imageUrl','$quantity','$categoryId')";
+     $result = $conn->exec($sql);
+     if($result) {
+        header("location:index.php");
+     }
+     
+}
+?> 
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,9 +52,10 @@
             <div class="form-group">
                 <label for="category">Danh mục:</label>
                 <select id="category" name="category_id">
-                    <option value="">Chọn danh mục</option>
-                        <option value="">Danh Mục</option>
-                        <option value="">Danh Mục</option>
+                    <?php foreach($resultCategory as $key=>$value) { ?>
+                        <option value="<?php echo $value['id'] ?>"><?php echo $value['category_name']; ?></option>
+                    <?php } ?>
+                      
                 </select>
                 <span></span>
             </div>

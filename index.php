@@ -1,3 +1,8 @@
+<?php
+require_once 'connect_database.php';
+$sql = "SELECT pr.id,pr.product_name,pr.price,pr.image,pr.quantity,ca.category_name FROM products AS pr INNER JOIN category AS ca WHERE ca.id = pr.category_id" ;
+$result = $conn->query($sql)->fetchAll();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -35,39 +40,19 @@
                 <th>Danh mục</th>
                 <th>Thao tác</th>
             </tr>
+            <?php foreach($result as $key => $value) { ?>
             <tr>
-                <td>OPPO A58</td>
-                <td><img src="images/image1.png" alt=""></td>
-                <td>4990000</td>
-                <td>50</td>
-                <td>Điện thoại</td>
+                <td><?php echo $value['product_name'] ?></td>
+                <td><img style="width: 150px;" src="<?php echo $value['image']; ?>" alt=""></td>
+                <td><?php echo $value['price']; ?></td>
+                <td><?php echo $value['quantity']; ?></td>
+                <td><?php echo $value['category_name']; ?></td>
                 <td>
                     <a class="edit-btn" href="#">Sửa</a>
                     <a class="delete-btn" href="#">Xóa</a>
                 </td>
-            </tr>
-            <tr>
-                <td>iPhone 15 Pro Max</td>
-                <td><img src="images/image2.png" alt=""></td>
-                <td>33990000</td>
-                <td>50</td>
-                <td>Điện thoại</td>
-                <td>
-                    <a class="edit-btn" href="#">Sửa</a>
-                    <a class="delete-btn" href="#">Xóa</a>
-                </td>
-            </tr>
-            <tr>
-                <td>MacBook Pro 16</td>
-                <td><img src="images/imgae4.png" alt=""></td>
-                <td>64990000</td>
-                <td>50</td>
-                <td>Laptop</td>
-                <td>
-                    <a class="edit-btn" href="#">Sửa</a>
-                    <a class="delete-btn" href="#">Xóa</a>
-                </td>
-            </tr>
+            </tr>   
+            <?php } ?>
         </table>
     </div>
 </body>
